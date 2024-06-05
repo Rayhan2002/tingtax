@@ -36,7 +36,7 @@
   }
 
   /**
-   * Easy on scroll event listener 
+   * Easy on scroll event listener
    */
   const onscroll = (el, listener) => {
     el.addEventListener('scroll', listener)
@@ -216,6 +216,32 @@
     }
   });
 
+  window.addEventListener('load', () => {
+    let servicesContainer = select('.services-container');
+    if (servicesContainer) {
+      let servicesIsotope = new Isotope(servicesContainer, {
+        itemSelector: '.services-item',
+      });
+
+      let servicesFilters = select('#services-flters li', true);
+
+      on('click', '#services-flters li', function(e) {
+        e.preventDefault();
+        servicesFilters.forEach(function(el) {
+          el.classList.remove('filter-active');
+        });
+        this.classList.add('filter-active');
+
+        servicesIsotope.arrange({
+          filter: this.getAttribute('data-filter')
+        });
+        servicesIsotope.on('arrangeComplete', function() {
+          AOS.refresh()
+        });
+      }, true);
+    }
+
+  });
   /**
    * Porfolio isotope and filter
    */
@@ -247,7 +273,7 @@
   });
 
   /**
-   * Initiate portfolio lightbox 
+   * Initiate portfolio lightbox
    */
   const portfolioLightbox = GLightbox({
     selector: '.portfolio-lightbox'
@@ -283,7 +309,7 @@
   });
 
   /**
-   * Initiate Pure Counter 
+   * Initiate Pure Counter
    */
   new PureCounter();
 

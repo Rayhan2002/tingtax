@@ -26,7 +26,7 @@
 </section><!-- End Hero -->
 
   <!-- ======= Services Section ======= -->
-  <section id="pelayanan" class="services">
+  <section id="services" class="services">
     <div class="container" data-aos="fade-up">
 
       <div class="section-title">
@@ -34,22 +34,33 @@
         <h3>Cek <span>Pelayanan Kami</span></h3>
       </div>
 
-      <div class="row">
+    <div class="row mb-4">
+        <div class="col-lg-12 d-flex justify-content-center">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createServicesModal">
+                + Tambah Pelayanan
+            </button>
+        </div>
+    </div>
+      <div class="row" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="services-flters">
+                <li data-filter="*" class="filter-active">Semua</li>
+                @foreach($categories as $category)
+                    <li data-filter=".filter-{{ $category->id }}">{{ $category->name }}</li>
+                @endforeach
+            </ul>
+        </div>
+      </div>
+      <div class="row services-container" data-aos="fade-up" data-aos-delay="200">
         @foreach($services as $service)
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="col-lg-4 col-md-6 mb-4 services-item filter-{{ $service->category->id }}">
             <div class="icon-box">
               <div class="icon"><i><img src="{{ Storage::url($service->logo) }}" class="img-fluid"></i></div>
               <h4><a href="#" data-bs-toggle="modal" data-bs-target="#editServiceModal{{ $service->id }}">{{ $service->name }}</a></h4>
             </div>
-          </div>
+        </div>
           @include('Admin.services.edit')
         @endforeach
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-plus"></i></div>
-              <h4><a href="#" data-bs-toggle="modal" data-bs-target="#createServicesModal">Tambah Pelayanan</a></h4>
-            </div>
-        </div>
       </div>
     </div>
     @include('Admin.services.create')

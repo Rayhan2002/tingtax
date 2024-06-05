@@ -23,6 +23,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['guest'])->group(function () {
